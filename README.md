@@ -174,19 +174,81 @@ total_stress <- unname(stress_map[df[[17]]]) +
 
 ---
 
+## 📈 Canonical Correlation Analysis Pipeline (`02_cca_analysis.R`)
+
+The statistical analysis script strictly follows Prof. Andersson's 5-step framework (Slides 190–232):
+
+```r
+# Core modeling in 02_cca_analysis.R
+X <- as.matrix(data_std[, 1:7])  # 7 Lifestyle variables
+Y <- as.matrix(data_std[, 8:12]) # 5 Academic & Well-being variables
+
+# 1. Canonical decomposition
+cca <- cancor(X, Y)
+
+# 2. Sequential Wilks' Lambda tests
+# Lambda_m = prod(1 - Rc[m:k]^2) with Bartlett's Chi-square approximation
+
+# 3. Canonical variates & loadings
+U <- scale(X %*% cca$xcoef[, 1:5])
+V <- scale(Y %*% cca$ycoef[, 1:5])
+loadings_X <- cor(X, U)
+loadings_Y <- cor(Y, V)
+```
+
+### Empirical Results Summary ($N = 124$)
+
+| Dimension | Canonical Correlation ($R_c$) | Eigenvalue | Wilks' $\Lambda$ | $\chi^2$ Stat | $df$ | $p$-value | Interpretation |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **1 to 5** | **0.4235** | **0.2186** | **0.6634** | **47.81** | **35** | **0.0730** | Substantial relationship (Marginal/Sig at $\alpha = 0.10$) |
+| **2 to 5** | 0.3346 | 0.1260 | 0.8084 | 24.78 | 24 | 0.4177 | Secondary pattern (Residual dimension) |
+| **3 to 5** | 0.2709 | 0.0792 | 0.9103 | 10.95 | 15 | 0.7560 | Non-significant |
+| **4 to 5** | 0.1267 | 0.0163 | 0.9824 | 2.07 | 8 | 0.9787 | Non-significant |
+| **5 to 5** | 0.0401 | 0.0016 | 0.9984 | 0.19 | 3 | 0.9795 | Non-significant |
+
+### Key Empirical Findings (Dimension 1: Collaborative Academic Routine)
+* **The Drivers in Set X (Lifestyle Habits):**
+  * `x_friends_study` (**+0.6800**): Studying collaboratively in peer groups is the single strongest positive contributor.
+  * `x_sitting_hours` (**+0.3375**) & `x_sleep_hours` (**+0.3061**): Sustained desk study time combined with sufficient sleep supports academic performance.
+  * `x_phone_bed` (**-0.2493**): Excessive bedtime phone usage negatively associates with academic wellness.
+* **The Outcomes in Set Y (Academic & Well-Being):**
+  * `y_academic_rank` (**+0.8612**): Exceptional positive alignment with perceived cohort standing.
+  * `y_self_esteem` (**+0.5797**) & `y_gpa_pct` (**+0.4254**): Higher self-esteem and stronger grades.
+  * `y_failed_courses` (**-0.2663**): Significantly fewer course failures.
+
+---
+
+## 🎨 Generated Presentation & Report Visualizations (`plots/`)
+
+The script automatically renders 4 publication-quality ($300\text{ dpi}$) figures:
+
+1. **`plots/01_correlation_matrix.png`**: Heatmap displaying all bivariate Pearson correlations between Set X and Set Y.
+2. **`plots/02_canonical_correlations.png`**: Scree bar plot of canonical correlation coefficients across all 5 dimensions.
+3. **`plots/03_canonical_variates_scatter.png`**: Scatter plot of $U_1$ (Lifestyle Routine) vs. $V_1$ (Academic & Well-being) with linear trendline ($R_{c1} = 0.424$).
+4. **`plots/04_canonical_loadings_dim1.png`**: Diverging horizontal bar chart illustrating the canonical structure loadings for Dimension 1.
+
+---
+
 ## 📂 Repository Structure
 
 ```text
 .
-├── 01_preprocess_data.R                                        # Preprocessing & cleaning R script
-├── README.md                                                   # Project documentation
-├── Responses – Student Lifestyle & Academic Performance Survey.xlsx # Raw survey data (N = 125)
-├── survey_clean_unstandardized.csv                             # Clean dataset in natural units (N = 124)
-├── survey_clean_standardized.csv                               # Clean standardized dataset (Z-scores)
-└── docs/                                                       # Official course materials
-    ├── Course Description-3.pdf                               # Course syllabus
-    ├── readmefromprofessor.pdf                                 # Professor's assignment guidelines
-    └── vorlesung-1.pdf                                         # Lecture slides (CCA: Slides 190–232)
+├── 01_preprocess_data.R                                             # Data cleaning & validation script
+├── 02_cca_analysis.R                                                # Canonical Correlation Analysis & plotting script
+├── README.md                                                        # Comprehensive project documentation
+├── Responses – Student Lifestyle & Academic Performance Survey.xlsx # Raw survey responses (N = 125)
+├── survey_clean_unstandardized.csv                                  # Preprocessed data in natural units (N = 124)
+├── survey_clean_standardized.csv                                    # Preprocessed standardized data (Z-scores)
+├── cca_summary_tables.txt                                           # Exported statistical summary tables
+├── plots/                                                           # Exported 300 DPI figures for presentation
+│   ├── 01_correlation_matrix.png
+│   ├── 02_canonical_correlations.png
+│   ├── 03_canonical_variates_scatter.png
+│   └── 04_canonical_loadings_dim1.png
+└── docs/                                                            # Official course reference materials
+    ├── Course Description-3.pdf
+    ├── readmefromprofessor.pdf
+    └── vorlesung-1.pdf
 ```
 
 ---
@@ -198,8 +260,13 @@ total_stress <- unname(stress_map[df[[17]]]) +
    git clone https://github.com/KiwisCodes/vgu-data-analysis-cca.git
    cd vgu-data-analysis-cca
    ```
-2. **Run data preprocessing in R:**
+2. **Execute data preprocessing:**
    ```bash
    Rscript 01_preprocess_data.R
    ```
-   *Output: 124 valid respondents processed, 7 Set X variables, 5 Set Y variables.*
+   *Cleans data, removes outliers, and generates standardized matrices ($N = 124$).*
+3. **Execute Canonical Correlation Analysis:**
+   ```bash
+   Rscript 02_cca_analysis.R
+   ```
+   *Computes canonical correlations, Wilks' Lambda tests, loadings, and saves all plots in `plots/`.*
