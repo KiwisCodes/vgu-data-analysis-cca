@@ -48,18 +48,34 @@ $$\rho^*_1 = \mathrm{Corr}(U_1, V_1) = \frac{\mathbf{a}' \mathbf{\Sigma}_{xy} \m
 
 ### 2. Constraints & Orthogonality
 To obtain unique mathematical solutions via eigenvalue decomposition:
-1. **Unit Variance:** $\mathrm{Var}(U_i) = \mathbf{a}_i'\mathbf{\Sigma}_{xx}\mathbf{a}_i = 1$ and $\mathrm{Var}(V_i) = \mathbf{b}_i'\mathbf{\Sigma}_{yy}\mathbf{b}_i = 1$.
-2. **Orthogonality:** Subsequent pairs $(U_2, V_2), \dots, (U_k, V_k)$ capture the maximum remaining correlation subject to being uncorrelated with all previous pairs:
-   $$\mathrm{Cov}(U_i, U_j) = 0, \quad \mathrm{Cov}(V_i, V_j) = 0, \quad \mathrm{Cov}(U_i, V_j) = 0 \quad (i \ne j)$$
-   *Number of canonical variate pairs:* $k = \min(p, q) = \min(7, 5) = \mathbf{5\text{ pairs}}$.
+
+**Unit Variance Constraint:**  
+Each canonical variate is scaled to have a variance of 1:
+
+$$\mathrm{Var}(U_i) = \mathbf{a}_i' \mathbf{\Sigma}_{xx} \mathbf{a}_i = 1 \quad \text{and} \quad \mathrm{Var}(V_i) = \mathbf{b}_i' \mathbf{\Sigma}_{yy} \mathbf{b}_i = 1$$
+
+**Orthogonality Constraint:**  
+Subsequent canonical variate pairs $(U_2, V_2), \dots, (U_k, V_k)$ must be completely uncorrelated with all previous pairs:
+
+$$\mathrm{Cov}(U_i, U_j) = 0, \quad \mathrm{Cov}(V_i, V_j) = 0, \quad \mathrm{Cov}(U_i, V_j) = 0 \quad (i \ne j)$$
+
+**Canonical Dimensions:**  
+The maximum number of canonical variate pairs extracted is:
+
+$$k = \min(p, q) = \min(7, 5) = 5 \text{ pairs}$$
 
 ### 3. Hypothesis Testing (Wilks' Lambda)
 We test whether canonical correlations are statistically significant using Wilks' Lambda $\Lambda$ (Slides 222–231):
 
-$$\Lambda_1 = \prod_{i=1}^k (1 - \rho_i^{*2})$$
+$$\Lambda_1 = \prod_{i=1}^k (1 - \rho_i^2)$$
 
-* **Test 1:** $H_0: \rho_1^* = \rho_2^* = \dots = \rho_k^* = 0$ (Tests whether Set X and Set Y are independent).
-* **Test 2:** $H_0: \rho_2^* = \dots = \rho_k^* = 0$ (Tests whether remaining dimensions are significant).
+* **Test 1 (Full Model Independence):**
+  $$H_0: \rho_1 = \rho_2 = \dots = \rho_k = 0$$
+  Tests whether Set X and Set Y are completely independent. If $p < 0.05$, at least the first canonical pair is statistically significant.
+
+* **Test 2 (Remaining Dimensions):**
+  $$H_0: \rho_2 = \dots = \rho_k = 0$$
+  Tests whether the second and subsequent dimensions carry significant correlation after removing the first pair.
 
 ---
 
