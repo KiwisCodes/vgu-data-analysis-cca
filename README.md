@@ -92,9 +92,9 @@ flowchart LR
         Y5["y_self_esteem (Scale 1–7)"]
     end
 
-    Set_X ==>|"Weight vector a"| U1
-    U1 <===>|"Canonical Correlation Rc1"| V1
-    V1 <==| "Weight vector b"| Set_Y
+    Set_X -->|"Weight vector a"| U1
+    U1 <-->|"Canonical Correlation Rc1"| V1
+    Set_Y -->|"Weight vector b"| V1
 ```
 
 ### Survey Variables & Scales
