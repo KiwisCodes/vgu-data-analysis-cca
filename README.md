@@ -12,7 +12,7 @@ This repository contains the primary survey data, data cleaning pipeline in **R*
 
 * **Multivariate Method:** **Canonical Correlation Analysis (CCA)** (Lecture Slides 190–232).
 * **Research Focus:** Investigating the multivariate relationship between **University Student Lifestyle & Tech Habits (Set X)** and **Academic Performance & Psychological Well-Being (Set Y)**.
-* **Empirical Data:** Self-administered survey among university students (**N = 107 valid responses**).
+* **Empirical Data:** Self-administered survey among university students (**N = 124 valid responses**).
 * **Grading Policy:** **No written exam.** The course grade is based on:
   * **Oral Presentation (Nov 16, 2026):** 3 to 5 minutes per member.
   * **Final Written Report (Nov 25, 2026):** 2 to 3 pages per member (one consolidated report with R code appendix).
@@ -79,9 +79,9 @@ $$\Lambda_1 = \prod_{i=1}^k (1 - \rho_i^2)$$
 
 ---
 
-## 📊 The Finalized Survey Instrument (N = 107)
+## 📊 The Finalized Survey Instrument (N = 124)
 
-The survey collected 108 raw responses. One obvious troll submission (`Major = "ăn tàn phá hoại"`, Sleep = 0h, Workout = 8h, Failed = 19) was filtered out, leaving **N = 107 clean, valid responses**.
+The survey collected 125 raw responses. One obvious troll submission (`Major = "ăn tàn phá hoại"`, Sleep = 0h, Workout = 8h, Failed = 19) was filtered out, leaving **N = 124 clean, valid responses**.
 
 ```mermaid
 flowchart LR
@@ -180,8 +180,8 @@ total_stress <- unname(stress_map[df[[17]]]) +
 .
 ├── 01_preprocess_data.R                                        # Preprocessing & cleaning R script
 ├── README.md                                                   # Project documentation
-├── Responses – Student Lifestyle & Academic Performance Survey.xlsx # Raw survey data (N = 108)
-├── survey_clean_unstandardized.csv                             # Clean dataset in natural units (N = 107)
+├── Responses – Student Lifestyle & Academic Performance Survey.xlsx # Raw survey data (N = 125)
+├── survey_clean_unstandardized.csv                             # Clean dataset in natural units (N = 124)
 ├── survey_clean_standardized.csv                               # Clean standardized dataset (Z-scores)
 └── docs/                                                       # Official course materials
     ├── Course Description-3.pdf                               # Course syllabus
@@ -202,4 +202,4 @@ total_stress <- unname(stress_map[df[[17]]]) +
    ```bash
    Rscript 01_preprocess_data.R
    ```
-   *Output: 107 valid respondents processed, 7 Set X variables, 5 Set Y variables.*
+   *Output: 124 valid respondents processed, 7 Set X variables, 5 Set Y variables.*
