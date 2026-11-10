@@ -1,0 +1,13 @@
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Microsoft Office temporary lock files
+~$*.docx
+~$*.xlsx
+
+# RStudio & R files
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
