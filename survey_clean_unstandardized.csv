@@ -1,4 +1,4 @@
-"Semester","Major","Sleep_Hours","Bedtime_Phone","Sitting_Hours","Workout_Hours","Hangout_Friends","Study_Friends","AI_Reliance","GPA_Percent","Academic_Rank","Failed_Courses","Total_Stress","Self_Esteem"
+"semester","major","x_sleep_hours","x_phone_bed","x_sitting_hours","x_workout_hours","x_friends_hangout","x_friends_study","x_ai_reliance","y_gpa_pct","y_academic_rank","y_failed_courses","y_total_stress","y_self_esteem"
 7,"CSE",7,0.5,10.5,1.5,4,2,3,98.3333333333333,4,0,10,5
 7,"Cse",8,1.5,12,1,3,2,1,96.6666666666667,4,0,5,7
 7,"CSE",8,1,10,1,2,2,6,98.3333333333333,4,0,6,7
@@ -61,7 +61,7 @@
 8,"International Business",7,1,10,1,3,1,6,75,2,0,10,5
 6,"Professional Communication",7,1.5,3,0,4,0,4,75,3,0,8,4
 7,"Business",6,1,8,1,3,1,6,93.75,3,0,5,5
-7,"Not specified",8,5,4,3,2,7,6,85,3,0,8,7
+NA,NA,NA,NA,NA,NA,NA,NA,4,NA,2.5,NA,NA,NA
 4,"Computer Sciences",6,2,10,3,4,1,2,85,3,2,6,6
 7,"Computer Sciences",7,0.5,8,2,8,4,4,83.3333333333333,2,2,6,4
 7,"Computer Sciences",7,0.5,8,1,3,1,5,68.3333333333333,2,4,4,5
@@ -81,7 +81,7 @@
 6,"Computer Sciences",7,8,9,0,0,1,6,75,3,0,9,3
 1,"ECE",6,0.5,8,0,1,0,5,66.6666666666667,1,0,10,5
 7,"Computer Science",8,3,10,3,1,0,4,93.3333333333333,4,0,7,6
-7,"Not specified",9,6.5,7,2,0,0,6,66.6666666666667,2,0,6,4
+NA,NA,NA,NA,NA,NA,NA,NA,4,NA,2.5,NA,NA,NA
 8,"Banking",6,3,5,3,2,3,5,87.5,3,0,8,5
 7,"Computer Sciences",5,2,9,1,3,4,5,71.6666666666667,1,5,11,3
 7,"bba",7,2,8,1,1,0,2,71.6666666666667,2,1,4,6

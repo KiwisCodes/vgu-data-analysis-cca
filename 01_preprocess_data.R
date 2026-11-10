@@ -26,13 +26,13 @@ map_ai <- function(x) {
 }
 
 X <- data.frame(
-  Sleep_Hours     = as.numeric(df[[4]]),
-  Bedtime_Phone   = as.numeric(df[[5]]),
-  Sitting_Hours   = as.numeric(df[[6]]),
-  Workout_Hours   = as.numeric(df[[7]]),
-  Hangout_Friends = as.numeric(df[[8]]),
-  Study_Friends   = as.numeric(df[[9]]),
-  AI_Reliance     = sapply(df[[10]], map_ai)
+  x_sleep_hours     = as.numeric(df[[4]]),
+  x_phone_bed       = as.numeric(df[[5]]),
+  x_sitting_hours   = as.numeric(df[[6]]),
+  x_workout_hours   = as.numeric(df[[7]]),
+  x_friends_hangout = as.numeric(df[[8]]),
+  x_friends_study   = as.numeric(df[[9]]),
+  x_ai_reliance     = sapply(df[[10]], map_ai)
 )
 
 # 4. Build Set Y (Academic & Well-being outcomes)
@@ -56,15 +56,15 @@ total_stress <- unname(s_map[df[[17]]]) +
                 unname(s_map[df[[20]]])
 
 Y <- data.frame(
-  GPA_Percent    = gpa_pct,
-  Academic_Rank  = academic_rank,
-  Failed_Courses = as.numeric(df[[16]]),
-  Total_Stress   = total_stress,
-  Self_Esteem    = as.numeric(df[[21]])
+  y_gpa_pct        = gpa_pct,
+  y_academic_rank  = academic_rank,
+  y_failed_courses = as.numeric(df[[16]]),
+  y_total_stress   = total_stress,
+  y_self_esteem    = as.numeric(df[[21]])
 )
 
 # 5. Save unstandardized data (for plots & summary tables)
-meta <- data.frame(Semester = as.numeric(df[[3]]), Major = df[[2]])
+meta <- data.frame(semester = as.numeric(df[[3]]), major = df[[2]])
 write.csv(cbind(meta, X, Y), "survey_clean_unstandardized.csv", row.names = FALSE)
 
 # 6. Save standardized data (z-scores for CCA)
