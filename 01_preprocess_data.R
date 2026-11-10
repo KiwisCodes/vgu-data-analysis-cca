@@ -11,19 +11,21 @@ if (!file.exists(file_path)) {
 df <- as.data.frame(read_excel(file_path))
 
 # 2. Filter out invalid/troll responses
-df <- df[df[[4]] > 0 & df[[2]] != "ăn tàn phá hoại", ]
+df <- df[df[[4]] > 0 & (is.na(df[[2]]) | df[[2]] != "ăn tàn phá hoại"), ]
 
 # 3. Build Set X (Lifestyle & Tech habits)
-map_ai <- function(x) {
-  if (grepl("don’t use AI|Less than 5%", x, ignore.case = TRUE)) return(1)
-  if (grepl("small things", x, ignore.case = TRUE))             return(2)
-  if (grepl("25%", x, ignore.case = TRUE))                      return(3)
-  if (grepl("I do the idea; AI does the work", x, fixed = TRUE)) return(4)
-  if (grepl("AI and I share the idea", x, fixed = TRUE))        return(5)
-  if (grepl("details|50%", x, ignore.case = TRUE))              return(6)
-  if (grepl("idea only", x, fixed = TRUE))                      return(7)
-  return(4)
-}
+# Exact mapping for AI options (1 = Minimal to 7 = Max AI autonomy)
+ai_map <- c(
+  "I don’t use AI for my work or study." = 1,
+  "Less than 5% – I give my idea to the AI and validate its execution" = 1,
+  "I do the idea and the work; AI only helps with small things (explaining, grammar, bugs)." = 2,
+  "25% – I and the AI work on the idea and execution together" = 3,
+  "I do the idea; AI does the work; I check it." = 4,
+  "AI and I share the idea; AI does the work; I check it." = 5,
+  "AI does the idea and the work; I check the idea and the details." = 6,
+  "50% – AI automates everything (from idea to execution), I check its idea and execution" = 6,
+  "AI does the idea and the work; I check the idea only." = 7
+)
 
 X <- data.frame(
   x_sleep_hours     = as.numeric(df[[4]]),
@@ -32,23 +34,22 @@ X <- data.frame(
   x_workout_hours   = as.numeric(df[[7]]),
   x_friends_hangout = as.numeric(df[[8]]),
   x_friends_study   = as.numeric(df[[9]]),
-  x_ai_reliance     = sapply(df[[10]], map_ai)
+  x_ai_reliance     = unname(ai_map[df[[10]]])
 )
 
 # 4. Build Set Y (Academic & Well-being outcomes)
-# Convert GPA to 0-100% scale
+# Exact mapping for GPA scale to 0-100%
 scale_type <- df[[11]]
 gpa_pct <- rep(NA, nrow(df))
-gpa_pct[grepl("4-point", scale_type)]  <- (as.numeric(df[[12]][grepl("4-point", scale_type)]) / 4) * 100
-gpa_pct[grepl("10-point", scale_type)] <- (as.numeric(df[[13]][grepl("10-point", scale_type)]) / 10) * 100
-gpa_pct[grepl("German", scale_type)]   <- (4 - as.numeric(df[[14]][grepl("German", scale_type)])) / 3 * 50 + 50
+gpa_pct[scale_type == "4-point scale (highest = 4.0)"]         <- (as.numeric(df[[12]][scale_type == "4-point scale (highest = 4.0)"]) / 4) * 100
+gpa_pct[scale_type == "10-point scale (highest = 10)"]        <- (as.numeric(df[[13]][scale_type == "10-point scale (highest = 10)"]) / 10) * 100
+gpa_pct[scale_type == "German scale (1.0 = best, 4.0 = pass)"] <- (4 - as.numeric(df[[14]][scale_type == "German scale (1.0 = best, 4.0 = pass)"])) / 3 * 50 + 50
 
-# Academic rank (1 = Top 70%, 4 = Top 10%)
+# Exact mapping for academic rank (1 = Top 70%, 4 = Top 10%)
 rank_map <- c("Top 10%" = 4, "Top 30%" = 3, "Top 50%" = 2, "Top 70%" = 1, "Other" = 2.5)
 academic_rank <- unname(rank_map[df[[15]]])
-academic_rank[is.na(academic_rank)] <- 2.5
 
-# PSS-4 Stress score (items 18 and 19 reverse-coded)
+# Exact mapping for PSS-4 stress score (items 18 and 19 reverse-coded)
 s_map <- c("Never" = 0, "Almost never" = 1, "Sometimes" = 2, "Fairly often" = 3, "Very often" = 4)
 total_stress <- unname(s_map[df[[17]]]) + 
                 (4 - unname(s_map[df[[18]]])) + 
