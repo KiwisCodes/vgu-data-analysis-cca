@@ -1,0 +1,96 @@
+
+==============================================================
+MAIN: All habits -> all outcomes 
+Rc1 = 0.408   p = 0.1132   (N = 121)
+==============================================================
+
+Set X (habits)
+          Variable Loading Weight  Cross   Role
+   x_friends_study   0.726  0.798  0.296 DRIVER
+   x_workout_hours  -0.334 -0.500 -0.136 DRIVER
+   x_sitting_hours   0.301  0.254  0.123 DRIVER
+ x_friends_hangout   0.268  0.006  0.109       
+     x_sleep_hours   0.248  0.463  0.101       
+       x_phone_bed  -0.210 -0.297 -0.086       
+     x_ai_reliance   0.026 -0.058  0.011       
+
+Set Y (outcomes)
+         Variable Loading Weight  Cross   Role
+  y_academic_rank   0.844  0.993  0.345 DRIVER
+    y_self_esteem   0.509  0.482  0.208 DRIVER
+        y_gpa_pct   0.338 -0.326  0.138 shared
+ y_failed_courses  -0.201  0.068 -0.082       
+   y_total_stress   0.111  0.366  0.045       
+
+==============================================================
+RQ1: Sitting & sleep -> stress & self-esteem 
+Rc1 = 0.100   p = 0.8284   (N = 121)
+==============================================================
+
+Set X (habits)
+        Variable Loading Weight Cross   Role
+   x_sleep_hours   0.899  1.049 0.090 DRIVER
+ x_sitting_hours   0.123  0.462 0.012       
+
+Set Y (outcomes)
+       Variable Loading Weight  Cross   Role
+  y_self_esteem   0.996  1.028  0.100 DRIVER
+ y_total_stress  -0.235  0.100 -0.024       
+
+==============================================================
+RQ2: Sleep & bedtime phone -> performance & stress 
+Rc1 = 0.200   p = 0.7100   (N = 121)
+==============================================================
+
+Set X (habits)
+      Variable Loading Weight  Cross   Role
+ x_sleep_hours   0.957  1.015  0.191 DRIVER
+   x_phone_bed  -0.096 -0.295 -0.019       
+
+Set Y (outcomes)
+         Variable Loading Weight  Cross   Role
+        y_gpa_pct   0.950  0.704  0.190 DRIVER
+  y_academic_rank   0.765  0.263  0.153 DRIVER
+ y_failed_courses  -0.570 -0.195 -0.114 DRIVER
+   y_total_stress  -0.243 -0.080 -0.049       
+
+==============================================================
+RQ3: Exercise & friends -> academic performance 
+Rc1 = 0.318   p = 0.1067   (N = 121)
+==============================================================
+
+Set X (habits)
+          Variable Loading Weight  Cross   Role
+   x_friends_study   0.799  0.889  0.254 DRIVER
+   x_workout_hours  -0.463 -0.609 -0.147 DRIVER
+ x_friends_hangout   0.260  0.027  0.083       
+
+Set Y (outcomes)
+         Variable Loading Weight  Cross   Role
+  y_academic_rank   0.874  1.248  0.278 DRIVER
+        y_gpa_pct   0.159 -0.530  0.051       
+ y_failed_courses  -0.037  0.165 -0.012       
+
+==============================================================
+SUMMARY (drivers: |loading| >= 0.3 )
+==============================================================
+
+MAIN: All habits -> all outcomes
+  Rc1 = 0.408, p = 0.1132
+  Habit drivers:   friends_study (+0.73), workout_hours (-0.33), sitting_hours (+0.30) 
+  Outcome drivers: academic_rank (+0.84), self_esteem (+0.51) 
+
+RQ1: Sitting & sleep -> stress & self-esteem
+  Rc1 = 0.100, p = 0.8284
+  Habit drivers:   sleep_hours (+0.90) 
+  Outcome drivers: self_esteem (+1.00) 
+
+RQ2: Sleep & bedtime phone -> performance & stress
+  Rc1 = 0.200, p = 0.7100
+  Habit drivers:   sleep_hours (+0.96) 
+  Outcome drivers: gpa_pct (+0.95), academic_rank (+0.77), failed_courses (-0.57) 
+
+RQ3: Exercise & friends -> academic performance
+  Rc1 = 0.318, p = 0.1067
+  Habit drivers:   friends_study (+0.80), workout_hours (-0.46) 
+  Outcome drivers: academic_rank (+0.87) 
