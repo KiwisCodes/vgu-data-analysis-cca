@@ -1,7 +1,4 @@
 "semester","major","x_sleep_hours","x_phone_bed","x_sitting_hours","x_workout_hours","x_friends_hangout","x_friends_study","x_ai_reliance","y_gpa_pct","y_academic_rank","y_failed_courses","y_total_stress","y_self_esteem"
-7,"CSE",7,0.5,10.5,1.5,4,2,3,98.3333333333333,4,0,10,5
-7,"Cse",8,1.5,12,1,3,2,1,96.6666666666667,4,0,5,7
-7,"CSE",8,1,10,1,2,2,6,98.3333333333333,4,0,6,7
 7,"CSE",8,1,10,1,2,2,5,98.3333333333333,4,0,6,6
 7,"cse",8,2,10,1,2,2,4,96.6666666666667,4,0,5,7
 8,"International Business",4,5.5,12,0,3,1,4,88,3,0,8,5

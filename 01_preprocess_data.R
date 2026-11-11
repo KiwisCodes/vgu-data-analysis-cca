@@ -10,7 +10,10 @@ if (!file.exists(file_path)) {
 }
 df <- as.data.frame(read_excel(file_path))
 
-# 2. Filter out invalid/troll responses
+# 2. Remove test and invalid responses
+# Rows 1-3 are test submissions made on an older version of the form
+df <- df[-(1:3), ]
+# Filter out invalid/troll responses
 df <- df[df[[4]] > 0 & (is.na(df[[2]]) | df[[2]] != "ăn tàn phá hoại"), ]
 
 # 3. Build Set X (Lifestyle & Tech habits)
